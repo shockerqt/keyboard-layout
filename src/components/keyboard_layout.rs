@@ -1,6 +1,6 @@
 use iced::{
     Element,
-    widget::{button, column},
+    widget::{Column, Row, button, column, text},
 };
 
 #[derive(Default)]
@@ -25,6 +25,18 @@ impl KeyboardLayout {
     }
 
     pub fn view(&self) -> Element<Message> {
-        column![button("A").on_press(Message::KeyA)].into()
+        let mut rows = Column::new();
+
+        for row_index in 0..3 {
+            let mut col = Row::new();
+
+            for col_index in 0..6 {
+                col = col.push(text!("{col_index}, {row_index}"));
+            }
+
+            rows = rows.push(col);
+        }
+
+        rows.into()
     }
 }
